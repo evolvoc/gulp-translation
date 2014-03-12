@@ -1,6 +1,6 @@
 {
   "name": "gulp-translation",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "gulp plugin to translate any plain text file",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,8 @@
     "translation",
     "locale",
     "html",
-    "translation"
+    "translate",
+    "gulp"
   ],
   "author": "mastilver",
   "license": "BSD",

@@ -1,7 +1,9 @@
+var path = require('path');
+
 var through = require('through2');
 var gutil = require('gulp-util');
 var PluginError = gutil.PluginError;
-var Vinyl = require('vinyl');
+var File = require('vinyl');
 
 const PLUGIN_NAME = 'gulp-translation';
 
@@ -41,17 +43,26 @@ var translate = function(opt)
 			});
 
 
-
-			var text = file.contents.toString('utf8');
-
-			text = text.replace(/\{\s?(\w+)\s?\}/mg, function(match, p1, offset, string)
+			for(var locale in locales)
 			{
-				return locales['en'][p1];
-			});
+				var text = file.contents.toString('utf8');
 
-			file.contents = new Buffer(text);
+				text = text.replace(/\{\s?(\w+)\s?\}/mg, function(match, p1, offset, string)
+				{
+					return locales[locale][p1];
+				});
 
-			self.push(file);
+
+				var translatedFile = new File(
+				{
+					cwd: file.cwd,
+					base: file.base,
+					path: path.join(file.base, locale, file.relative),
+					contents: new Buffer(text)
+				});
+
+				self.push(translatedFile);
+			}
 		}));
 
 
