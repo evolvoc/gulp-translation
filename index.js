@@ -6,7 +6,6 @@ var Vinyl = require('vinyl');
 const PLUGIN_NAME = 'gulp-translation';
 
 
-
 var translate = function(opt)
 {
 	if(!opt.localeFiles)
@@ -14,17 +13,7 @@ var translate = function(opt)
 		
 	}
 
-	var locales = {};
-
-	opt.localeFiles.pipe(gutil.buffer(function(err, files)
-	{
-		files.forEach(function(file)
-		{
-			locales[file.relative.split('.')[0]] = JSON.parse(file.contents.toString('utf8'));
-		});
-
-		gutil.log(locales);
-	}));
+	
 
 
 	var transform = function(file, enc, callback)
@@ -40,8 +29,34 @@ var translate = function(opt)
 			return callback();
 		}
 
+		var self = this;
 
-		this.push(file);
+		opt.localeFiles.pipe(gutil.buffer(function(err, localeFiles)
+		{
+			// get locales configuration
+			var locales = {};
+			localeFiles.forEach(function(localeFile)
+			{
+				locales[localeFile.relative.split('.')[0]] = JSON.parse(localeFile.contents.toString('utf8'));
+			});
+
+
+
+			var text = file.contents.toString('utf8');
+
+			text = text.replace(/\{\s?(\w+)\s?\}/mg, function(match, p1, offset, string)
+			{
+				return locales['en'][p1];
+			});
+
+			file.contents = new Buffer(text);
+
+			self.push(file);
+		}));
+
+
+
+		
 
 
 	};
