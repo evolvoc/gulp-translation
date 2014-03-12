@@ -1,7 +1,7 @@
 {
   "name": "gulp-translation",
-  "version": "0.1.0",
-  "description": "gulp plugin to translate html file",
+  "version": "0.1.1",
+  "description": "gulp plugin to translate any plain text file",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,18 +15,18 @@
     "i18n",
     "translation",
     "locale",
-    "html"
+    "html",
+    "translation"
   ],
   "author": "mastilver",
   "license": "BSD",
-  "gitHead": "c4faa3194d93f5d6b68c769af219e6c469623c20",
   "readmeFilename": "README.md",
   "dependencies": {
-    "through2": "~0.4.1",
-    "gulp-util": "~2.2.14",
-    "vinyl": "~0.2.3"
+    "through2": "0.x",
+    "gulp-util": "2.x",
+    "vinyl": "0.x"
   },
   "devDependencies": {
-    "gulp": "~3.5.5"
+    "gulp": "3.x"
   }
 }
