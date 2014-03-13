@@ -1,0 +1,4 @@
+{
+	"welcome": "bienvenue { name } !",
+	"friend": "{ firstName } et { secondName } sont amis"
+}

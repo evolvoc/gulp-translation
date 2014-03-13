@@ -47,9 +47,41 @@ var translate = function(opt)
 			{
 				var text = file.contents.toString('utf8');
 
-				text = text.replace(/\{\s?(\w+)\s?\}/mg, function(match, p1, offset, string)
+				// basic translation
+				text = text.replace(/\{\s?(\w+)\s?\}/mg, function(match, word)
 				{
-					return locales[locale][p1];
+					return locales[locale][word];
+				});
+
+				// translation with parameters
+				text = text.replace(/\{\s?(\w+)\s?\|\s([\w,\:\s]+)\s?}/mg, function(match, word, parameters)
+				{
+					parameters = parameters.split(',');
+
+					var translatedString = locales[locale][word];
+
+					// replace each parameters by its translation
+					for(var i in parameters)
+					{
+						// for named parameter
+						if(parameters[i].match(/\w+\s?:\s?\w+/))
+						{
+							var parameter = parameters[i].split(':');
+
+							// 
+							translatedString = translatedString.replace
+							(
+								new RegExp('\\{\\s?' + parameter[0].trim() + '\\s?}', 'gm'),
+								parameter[1].trim()
+							);
+						}
+						else // for ordered parameters
+						{
+							gutil.log('ordered parameters is not implemented yet!')
+						}
+					}
+
+					return translatedString;
 				});
 
 
