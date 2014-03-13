@@ -95,13 +95,9 @@ var translate = function(opt)
 
 				self.push(translatedFile);
 			}
+
+			callback();
 		}));
-
-
-
-		
-
-
 	};
 
 
