@@ -1,6 +1,6 @@
 {
   "name": "gulp-translation",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "gulp plugin to translate any plain text file",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,8 @@
     "through2": "0.x",
     "gulp-util": "2.x",
     "vinyl": "0.x",
-    "async": "~0.2.10"
+    "async": "~0.2.10",
+    "glob": "~3.2.9"
   },
   "devDependencies": {
     "gulp": "3.x"
