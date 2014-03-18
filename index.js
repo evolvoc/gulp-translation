@@ -16,7 +16,11 @@ var translate = function(opt)
 		
 	}
 
-	
+	var prefix = opt.prefix || '\\{';
+	var suffix = opt.suffix || '}';
+
+	var basicRegex = new RegExp(prefix + '\\s?(\\w+)\\s?' + sufix, 'gm');
+	var parameterRegex = new RegExp(prefix + '\\s?(\\w+)\\s?\\|\\s([\\w,\\:\\s]+)\\s?' + sufix, 'gm');
 
 
 	var transform = function(file, enc, callback)
@@ -41,13 +45,13 @@ var translate = function(opt)
 				var text = file.contents.toString('utf8');
 
 				// basic translation
-				text = text.replace(/\{\s?(\w+)\s?\}/mg, function(match, word)
+				text = text.replace(basicRegex, function(match, word)
 				{
 					return locales[locale][word];
 				});
 
 				// translation with parameters
-				text = text.replace(/\{\s?(\w+)\s?\|\s([\w,\:\s]+)\s?}/mg, function(match, word, parameters)
+				text = text.replace(parameterRegex, function(match, word, parameters)
 				{
 					parameters = parameters.split(',');
 
