@@ -19,8 +19,8 @@ var translate = function(opt)
 	var prefix = opt.prefix || '\\{';
 	var suffix = opt.suffix || '}';
 
-	var basicRegex = new RegExp(prefix + '\\s?(\\w+)\\s?' + sufix, 'gm');
-	var parameterRegex = new RegExp(prefix + '\\s?(\\w+)\\s?\\|\\s([\\w,\\:\\s]+)\\s?' + sufix, 'gm');
+	var basicRegex = new RegExp(prefix + '\\s?(\\w+)\\s?' + suffix, 'gm');
+	var parameterRegex = new RegExp(prefix + '\\s?(\\w+)\\s?\\|\\s([\\w,\\:\\s]+)\\s?' + suffix, 'gm');
 
 
 	var transform = function(file, enc, callback)
@@ -35,6 +35,8 @@ var translate = function(opt)
 			this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
 			return callback();
 		}
+
+		gutil.log(opt.localeFiles);
 
 		var self = this;
 
